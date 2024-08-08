@@ -34,7 +34,7 @@ export default function ForgotPassword() {
         >
           <KeyRound className="inline-block w-16 h-16 text-blue-400 dark:text-blue-300 mb-4" />
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Forgot Password?</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-300">No worries, we'll send you reset instructions.</p>
+          <p className="mt-2 text-gray-600 dark:text-gray-300">No worries, we&apos;ll send you reset instructions.</p>
         </motion.div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -91,7 +91,7 @@ export default function ForgotPassword() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400"
         >
-          Don't have an account?{' '}
+          Don&apos;t have an account?
           <Link 
             href="/signup" 
             className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
