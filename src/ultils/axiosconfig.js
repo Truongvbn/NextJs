@@ -1,5 +1,7 @@
 import axios from "axios";
-const BASE_URL = "/api";  // Thay đổi này
+
+// const BASE_URL = "/api";  
+const BASE_URL = "http://35.206.223.219";// Thay vì "http://35.206.223.219"
 const API_CONFIGS = {
   main: "/main-service/api",
   auth: "/auth-service/api/user",
