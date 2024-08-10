@@ -18,6 +18,14 @@ const nextConfig = {
         // Thêm bất kỳ domain nào khác mà bạn sử dụng cho hình ảnh
       ],
     },
+    async rewrites() {
+      return [
+        {
+          source: '/api/:path*',
+          destination: 'http://35.206.223.219/:path*' // Chuyển tiếp đến API server của bạn
+        }
+      ]
+    },
   };
   
   export default nextConfig;
