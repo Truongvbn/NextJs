@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
   Compass,
@@ -18,16 +18,16 @@ import {
   BarChart,
   Bell,
   ChevronLeft,
-} from 'lucide-react';
+} from "lucide-react";
 
 const menuItems = [
-  { name: 'Dashboard', icon: Home, path: '/' },
-  { name: 'Explore', icon: Compass, path: '/explore' },
-  { name: 'Categories', icon: Layers, path: '/categories' },
-  { name: 'Saved', icon: Heart, path: '/saved' },
-  { name: 'My Courses', icon: Book, path: '/my-courses' },
-  { name: 'Community', icon: Users, path: '/community' },
-  { name: 'Analytics', icon: BarChart, path: '/analytics' },
+  { name: "Dashboard", icon: Home, path: "/" },
+  { name: "Explore", icon: Compass, path: "/explore" },
+  { name: "Categories", icon: Layers, path: "/categories" },
+  { name: "Saved", icon: Heart, path: "/saved" },
+  { name: "My Courses", icon: Book, path: "/my-courses" },
+  { name: "Community", icon: Users, path: "/community" },
+  { name: "Analytics", icon: BarChart, path: "/analytics" },
 ];
 
 const Sidebar = ({ isCollapsed, toggleSidebar }) => {
@@ -41,17 +41,17 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
 
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setActiveSubmenu(null);
       }
     };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
   }, []);
 
   return (
     <motion.div
-      className={`fixed left-0 top-16 bottom-0 bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl text-gray-600 dark:text-gray-300 shadow-lg transition-all duration-300 ease-in-out z-40 border-r border-gray-200/50 dark:border-gray-700/50 ${isCollapsed ? 'w-20' : 'w-64'}`}
+      className={`fixed left-0 top-16 bottom-0 bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl text-gray-600 dark:text-gray-300 shadow-lg transition-all duration-300 ease-in-out z-40 border-r border-gray-200/50 dark:border-gray-700/50 ${isCollapsed ? "w-20" : "w-64"}`}
       initial={false}
       animate={{ width: isCollapsed ? 80 : 256 }}
     >
@@ -62,8 +62,8 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
               <motion.div
                 className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
                   pathname === item.path
-                    ? 'bg-blue-500/20 dark:bg-blue-400/20 text-blue-600 dark:text-blue-400'
-                    : 'hover:bg-gray-100/60 dark:hover:bg-gray-700/60'
+                    ? "bg-blue-500/20 dark:bg-blue-400/20 text-blue-600 dark:text-blue-400"
+                    : "hover:bg-gray-100/60 dark:hover:bg-gray-700/60"
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -72,7 +72,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
               >
                 <item.icon
                   size={24}
-                  className={pathname === item.path ? 'text-blue-600 dark:text-blue-400' : ''}
+                  className={pathname === item.path ? "text-blue-600 dark:text-blue-400" : ""}
                 />
                 {(!isCollapsed || hoveredItem === item.name) && (
                   <AnimatePresence>
@@ -93,7 +93,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
         </nav>
         <div className="px-2 py-4 space-y-1 border-t border-gray-200/50 dark:border-gray-700/50">
           <motion.div
-            onClick={() => toggleSubmenu('settings')}
+            onClick={() => toggleSubmenu("settings")}
             className="flex items-center justify-between p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-colors duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -106,20 +106,20 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
               <ChevronRight
                 size={20}
                 className={`transform transition-transform duration-200 ${
-                  activeSubmenu === 'settings' ? 'rotate-90' : ''
+                  activeSubmenu === "settings" ? "rotate-90" : ""
                 }`}
               />
             )}
           </motion.div>
           <AnimatePresence>
-            {activeSubmenu === 'settings' && !isCollapsed && (
+            {activeSubmenu === "settings" && !isCollapsed && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 className="ml-8 space-y-1"
               >
-                {['Profile', 'Account', 'Notifications'].map((item) => (
+                {["Profile", "Account", "Notifications"].map((item) => (
                   <Link href={`/settings/${item.toLowerCase()}`} key={item}>
                     <motion.div
                       className="p-2 rounded-md hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-colors duration-200"

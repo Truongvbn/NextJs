@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Bell,
   MessageSquare,
@@ -13,8 +13,8 @@ import {
   Book,
   Settings,
   LogOut,
-} from 'lucide-react';
-import { useTheme } from 'next-themes';
+} from "lucide-react";
+import { useTheme } from "next-themes";
 
 // eslint-disable-next-line react/prop-types
 const Header = ({ toggleSidebar }) => {
@@ -27,14 +27,14 @@ const Header = ({ toggleSidebar }) => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-700/50 h-16 flex items-center justify-between px-4 z-50 transition-all duration-300 ${
-        scrollPosition > 50 ? 'shadow-md' : ''
+        scrollPosition > 50 ? "shadow-md" : ""
       }`}
     >
       <div className="flex items-center space-x-4">
@@ -47,12 +47,12 @@ const Header = ({ toggleSidebar }) => {
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">LearnHub</h1>
       </div>
       <div className="flex items-center space-x-4">
-        <div className={`relative ${isSearchOpen ? 'w-64' : 'w-10'} transition-all duration-300`}>
+        <div className={`relative ${isSearchOpen ? "w-64" : "w-10"} transition-all duration-300`}>
           <input
             type="text"
             placeholder="Search..."
             className={`w-full h-10 px-4 rounded-full bg-gray-100/50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 ${
-              isSearchOpen ? 'opacity-100' : 'opacity-0'
+              isSearchOpen ? "opacity-100" : "opacity-0"
             }`}
           />
           <button
@@ -78,10 +78,10 @@ const Header = ({ toggleSidebar }) => {
           </span>
         </button>
         <button
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="relative p-2 rounded-full bg-gray-100/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-gray-200/50 dark:hover:bg-gray-600/50 transition-colors duration-200 group"
         >
-          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           <span className="absolute top-full mt-1 right-0 bg-white dark:bg-gray-800 text-sm py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             Toggle Theme
           </span>

@@ -1,12 +1,12 @@
-import { Inter } from 'next/font/google';
-import RootLayoutClient from './RootLayoutClient';
-import './globals.css';
+import { Inter } from "next/font/google";
+import RootLayoutClient from "./RootLayoutClient";
+import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'Admin Dashboard',
-  description: 'Modern Admin Dashboard with Next.js and Tailwind CSS',
+  title: "Admin Dashboard",
+  description: "Modern Admin Dashboard with Next.js and Tailwind CSS",
 };
 
 export default function RootLayout({ children }) {

@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
-import { Mail, ArrowRight, KeyRound, ArrowLeft } from 'lucide-react';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { Mail, ArrowRight, KeyRound, ArrowLeft } from "lucide-react";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const router = useRouter();
   const { theme, setTheme } = useTheme();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Password reset requested for:', email);
+    console.log("Password reset requested for:", email);
     // Implement password reset logic here
   };
 

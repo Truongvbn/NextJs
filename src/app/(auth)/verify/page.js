@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { CheckCircle, XCircle, Loader } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle, Loader } from "lucide-react";
 
 export default function VerifyPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [verificationStatus, setVerificationStatus] = useState('verifying'); // 'verifying', 'success', 'error'
+  const [verificationStatus, setVerificationStatus] = useState("verifying"); // 'verifying', 'success', 'error'
 
   useEffect(() => {
     const verifyToken = async () => {
-      const token = searchParams.get('token');
+      const token = searchParams.get("token");
       if (!token) {
-        setVerificationStatus('error');
+        setVerificationStatus("error");
         return;
       }
 
@@ -22,18 +22,18 @@ export default function VerifyPage() {
         const response = await fetch(
           `http://localhost/auth-service/api/user/auth/verify?token=${token}`,
           {
-            method: 'POST',
-          }
+            method: "POST",
+          },
         );
 
         if (response.ok) {
-          setVerificationStatus('success');
+          setVerificationStatus("success");
         } else {
-          setVerificationStatus('error');
+          setVerificationStatus("error");
         }
       } catch (error) {
-        console.error('Verification error:', error);
-        setVerificationStatus('error');
+        console.error("Verification error:", error);
+        setVerificationStatus("error");
       }
     };
 
@@ -53,7 +53,7 @@ export default function VerifyPage() {
     hidden: { scale: 0 },
     visible: {
       scale: 1,
-      transition: { delay: 0.2, type: 'spring', stiffness: 200, damping: 10 },
+      transition: { delay: 0.2, type: "spring", stiffness: 200, damping: 10 },
     },
   };
 
@@ -65,7 +65,7 @@ export default function VerifyPage() {
         initial="hidden"
         animate="visible"
       >
-        {verificationStatus === 'verifying' && (
+        {verificationStatus === "verifying" && (
           <div className="text-center">
             <Loader className="w-16 h-16 text-blue-400 animate-spin mx-auto" />
             <h2 className="mt-4 text-2xl font-semibold text-white">Verifying your account...</h2>
@@ -73,7 +73,7 @@ export default function VerifyPage() {
           </div>
         )}
 
-        {verificationStatus === 'success' && (
+        {verificationStatus === "success" && (
           <div className="text-center">
             <motion.div variants={iconVariants}>
               <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
@@ -86,14 +86,14 @@ export default function VerifyPage() {
               className="mt-6 px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => router.push('/login')}
+              onClick={() => router.push("/login")}
             >
               Go to Login
             </motion.button>
           </div>
         )}
 
-        {verificationStatus === 'error' && (
+        {verificationStatus === "error" && (
           <div className="text-center">
             <motion.div variants={iconVariants}>
               <XCircle className="w-16 h-16 text-red-400 mx-auto" />
@@ -106,7 +106,7 @@ export default function VerifyPage() {
               className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => router.push('/signup')}
+              onClick={() => router.push("/signup")}
             >
               Back to Sign Up
             </motion.button>

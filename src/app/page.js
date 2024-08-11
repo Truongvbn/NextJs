@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
-import { Sun, Moon, LogIn, UserPlus, LayoutDashboard, Key } from 'lucide-react';
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import { Sun, Moon, LogIn, UserPlus, LayoutDashboard, Key } from "lucide-react";
 
 const features = [
-  { name: 'Login', path: '/login', icon: LogIn },
-  { name: 'Sign Up', path: '/signup', icon: UserPlus },
-  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-  { name: 'Forgot Password', path: '/forgot-password', icon: Key },
+  { name: "Login", path: "/login", icon: LogIn },
+  { name: "Sign Up", path: "/signup", icon: UserPlus },
+  { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+  { name: "Forgot Password", path: "/forgot-password", icon: Key },
 ];
 
 export default function Home() {
@@ -79,12 +79,12 @@ export default function Home() {
         className="mt-8"
       >
         <button
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200 flex items-center"
           aria-label="Toggle Dark Mode"
         >
-          {theme === 'dark' ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
-          <span className="ml-2">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+          {theme === "dark" ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+          <span className="ml-2">{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
         </button>
       </motion.div>
     </main>

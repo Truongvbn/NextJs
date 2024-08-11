@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState } from "react";
+import Image from "next/image";
 import {
   Users,
   Star,
@@ -13,15 +13,15 @@ import {
   Clock,
   ChevronDown,
   ChevronUp,
-} from 'lucide-react';
-import { useTheme } from 'next-themes';
+} from "lucide-react";
+import { useTheme } from "next-themes";
 
 const StatCard = ({ title, value, icon, color }) => {
   const { theme } = useTheme();
 
   return (
     <div
-      className={`${theme === 'dark' ? 'bg-gray-800/50' : 'bg-white/50'} backdrop-blur-md rounded-xl overflow-hidden shadow-lg p-6 h-full transform transition duration-500 hover:scale-105 border border-gray-200 dark:border-gray-700`}
+      className={`${theme === "dark" ? "bg-gray-800/50" : "bg-white/50"} backdrop-blur-md rounded-xl overflow-hidden shadow-lg p-6 h-full transform transition duration-500 hover:scale-105 border border-gray-200 dark:border-gray-700`}
     >
       <div className="flex justify-between items-center h-full relative">
         <div className="z-10">
@@ -39,7 +39,7 @@ const StatCard = ({ title, value, icon, color }) => {
         <div className="z-10">
           {React.cloneElement(icon, {
             size: 32,
-            className: `text-${color.split('-')[1]}-500`,
+            className: `text-${color.split("-")[1]}-500`,
           })}
         </div>
       </div>
@@ -56,13 +56,13 @@ const InstructorCard = ({ instructor }) => {
   return (
     <div
       className={`group h-full flex flex-col rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${
-        theme === 'dark' ? 'bg-gray-800/50' : 'bg-white/50'
+        theme === "dark" ? "bg-gray-800/50" : "bg-white/50"
       } backdrop-blur-md border border-gray-200 dark:border-gray-700 overflow-hidden`}
     >
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={instructor.ava || '/default-avatar.png'}
-          alt={instructor.name || 'Instructor'}
+          src={instructor.ava || "/default-avatar.png"}
+          alt={instructor.name || "Instructor"}
           layout="fill"
           objectFit="cover"
           className="transition-transform duration-300 group-hover:scale-110"
@@ -71,15 +71,15 @@ const InstructorCard = ({ instructor }) => {
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
           <h3
             className="text-xl font-bold text-white mb-1 truncate"
-            title={instructor.name || 'Unknown Instructor'}
+            title={instructor.name || "Unknown Instructor"}
           >
-            {instructor.name || 'Unknown Instructor'}
+            {instructor.name || "Unknown Instructor"}
           </h3>
           <p
             className="text-sm text-gray-300 truncate"
-            title={instructor.sum || 'Expert Instructor'}
+            title={instructor.sum || "Expert Instructor"}
           >
-            {instructor.sum || 'Expert Instructor'}
+            {instructor.sum || "Expert Instructor"}
           </p>
         </div>
       </div>
@@ -99,26 +99,26 @@ const InstructorCard = ({ instructor }) => {
           </div>
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
             <Mail className="w-4 h-4 mr-2 text-purple-500" />
-            <span className="truncate">{instructor.email || 'N/A'}</span>
+            <span className="truncate">{instructor.email || "N/A"}</span>
           </div>
         </div>
         <div
-          className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-40' : 'max-h-0'}`}
+          className={`overflow-hidden transition-all duration-300 ${isExpanded ? "max-h-40" : "max-h-0"}`}
         >
           <p
             className="text-sm text-gray-600 dark:text-gray-300 mb-4"
-            title={instructor.description || 'No description available.'}
+            title={instructor.description || "No description available."}
           >
-            {instructor.description || 'No description available.'}
+            {instructor.description || "No description available."}
           </p>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
               <span className="font-semibold mr-2">Experience:</span>
-              <span>{instructor.experience || 'N/A'}</span>
+              <span>{instructor.experience || "N/A"}</span>
             </div>
             <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
               <span className="font-semibold mr-2">Languages:</span>
-              <span>{instructor.languages?.join(', ') || 'N/A'}</span>
+              <span>{instructor.languages?.join(", ") || "N/A"}</span>
             </div>
           </div>
         </div>
@@ -163,13 +163,13 @@ const CourseCard = ({ course }) => {
   return (
     <div
       className={`group h-full flex flex-col rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${
-        theme === 'dark' ? 'bg-gray-800/50' : 'bg-white/50'
+        theme === "dark" ? "bg-gray-800/50" : "bg-white/50"
       } backdrop-blur-md border border-gray-200 dark:border-gray-700 overflow-hidden`}
     >
       <div className="relative aspect-video">
         <Image
-          src={course.imageUrl || '/default-course.png'}
-          alt={course.title || 'Course'}
+          src={course.imageUrl || "/default-course.png"}
+          alt={course.title || "Course"}
           layout="fill"
           objectFit="cover"
           className="group-hover:scale-105 transition-transform duration-300"
@@ -180,15 +180,15 @@ const CourseCard = ({ course }) => {
           onClick={() => setIsFavorite(!isFavorite)}
         >
           <Heart
-            className={`w-4 h-4 ${isFavorite ? 'text-red-500 fill-current' : 'text-gray-600'}`}
+            className={`w-4 h-4 ${isFavorite ? "text-red-500 fill-current" : "text-gray-600"}`}
           />
         </button>
         <div className="absolute bottom-2 left-2 flex items-center space-x-1">
           <span className="px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded-full">
-            {course.category?.name || 'Uncategorized'}
+            {course.category?.name || "Uncategorized"}
           </span>
           <span className="px-2 py-1 bg-green-500 text-white text-xs font-medium rounded-full">
-            {course.price === 0 ? 'Free' : `$${course.price?.toFixed(2)}`}
+            {course.price === 0 ? "Free" : `$${course.price?.toFixed(2)}`}
           </span>
         </div>
       </div>
@@ -196,29 +196,29 @@ const CourseCard = ({ course }) => {
         <div>
           <h3
             className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2 mb-2"
-            title={course.title || 'Untitled Course'}
+            title={course.title || "Untitled Course"}
           >
-            {course.title || 'Untitled Course'}
+            {course.title || "Untitled Course"}
           </h3>
           <p
             className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-3"
-            title={course.sum || 'No summary available.'}
+            title={course.sum || "No summary available."}
           >
-            {course.sum || 'No summary available.'}
+            {course.sum || "No summary available."}
           </p>
         </div>
         <div
-          className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-40' : 'max-h-0'}`}
+          className={`overflow-hidden transition-all duration-300 ${isExpanded ? "max-h-40" : "max-h-0"}`}
         >
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-            {course.description || 'No detailed description available.'}
+            {course.description || "No detailed description available."}
           </p>
         </div>
         <div className="mt-auto">
           <div className="flex justify-between items-center text-sm mb-3">
             <div className="flex items-center text-yellow-500">
               <Star className="w-4 h-4 mr-1 fill-current" />
-              <span className="font-semibold">{course.rating?.toFixed(1) || 'N/A'}</span>
+              <span className="font-semibold">{course.rating?.toFixed(1) || "N/A"}</span>
             </div>
             <div className="flex items-center text-gray-500 dark:text-gray-400">
               <Users className="w-4 h-4 mr-1" />

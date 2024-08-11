@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { mainApi } from '@/ultils/axiosconfig';
-import { CourseCard } from '@/components/ui/Card';
-import Pagination from '@/components/ui/Pagination';
+import React, { useState, useEffect } from "react";
+import { mainApi } from "@/ultils/axiosconfig";
+import { CourseCard } from "@/components/ui/Card";
+import Pagination from "@/components/ui/Pagination";
 
 export default function ExplorePage() {
   const [courses, setCourses] = useState([]);
@@ -25,7 +25,7 @@ export default function ExplorePage() {
       const response = await mainApi.get(`/courses?page=${currentPage - 1}&size=${pageSize}`);
       setCourses(response.data.payload);
     } catch (err) {
-      setError('Failed to fetch courses');
+      setError("Failed to fetch courses");
     } finally {
       setLoading(false);
     }
@@ -33,11 +33,11 @@ export default function ExplorePage() {
 
   const fetchTotalCourses = async () => {
     try {
-      const response = await mainApi.get('/courses/total');
+      const response = await mainApi.get("/courses/total");
       const total = response.data.payload;
       setTotalPages(Math.ceil(total / pageSize));
     } catch (err) {
-      setError('Failed to fetch total courses');
+      setError("Failed to fetch total courses");
     }
   };
 

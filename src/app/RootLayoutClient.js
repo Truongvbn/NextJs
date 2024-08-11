@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from 'next-themes';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
-import Footer from '@/components/Footer';
+import React, { useState, useEffect } from "react";
+import { ThemeProvider } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 const RootLayoutClient = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -20,8 +20,8 @@ const RootLayoutClient = ({ children }) => {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleSidebar = () => {
@@ -52,7 +52,7 @@ const RootLayoutClient = ({ children }) => {
               initial={false}
               animate={{
                 marginLeft: isMobile ? 0 : isSidebarOpen ? 256 : 0,
-                width: isMobile ? '100%' : `calc(100% - ${isSidebarOpen ? 256 : 0}px)`,
+                width: isMobile ? "100%" : `calc(100% - ${isSidebarOpen ? 256 : 0}px)`,
               }}
               transition={{ duration: 0.3 }}
             >

@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-'use client';
-import React, { useRef, useEffect } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { motion, AnimatePresence } from 'framer-motion';
+"use client";
+import React, { useRef, useEffect } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SlickSlider = ({ title, items, renderItem }) => {
   const sliderRef = useRef(null);
@@ -61,17 +61,17 @@ const SlickSlider = ({ title, items, renderItem }) => {
     const equalizeCardHeights = () => {
       if (sliderRef.current) {
         const slideNodes =
-          sliderRef.current.innerSlider.list.querySelector('.slick-track').childNodes;
+          sliderRef.current.innerSlider.list.querySelector(".slick-track").childNodes;
         let maxHeight = 0;
         slideNodes.forEach((slide) => {
-          const slideContent = slide.querySelector('.card-content');
+          const slideContent = slide.querySelector(".card-content");
           if (slideContent) {
-            slideContent.style.height = 'auto';
+            slideContent.style.height = "auto";
             maxHeight = Math.max(maxHeight, slideContent.offsetHeight);
           }
         });
         slideNodes.forEach((slide) => {
-          const slideContent = slide.querySelector('.card-content');
+          const slideContent = slide.querySelector(".card-content");
           if (slideContent) {
             slideContent.style.height = `${maxHeight}px`;
           }
@@ -80,10 +80,10 @@ const SlickSlider = ({ title, items, renderItem }) => {
     };
 
     equalizeCardHeights();
-    window.addEventListener('resize', equalizeCardHeights);
+    window.addEventListener("resize", equalizeCardHeights);
 
     return () => {
-      window.removeEventListener('resize', equalizeCardHeights);
+      window.removeEventListener("resize", equalizeCardHeights);
     };
   }, [items]);
 
@@ -120,7 +120,7 @@ const SlickSlider = ({ title, items, renderItem }) => {
               className="absolute -left-4 sm:-left-8 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 z-20"
             >
               <ChevronLeft
-                className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
+                className={`w-6 h-6 ${theme === "dark" ? "text-white" : "text-gray-800"}`}
               />
             </motion.button>
           )}
@@ -135,7 +135,7 @@ const SlickSlider = ({ title, items, renderItem }) => {
               className="absolute -right-4 sm:-right-8 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 z-20"
             >
               <ChevronRight
-                className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
+                className={`w-6 h-6 ${theme === "dark" ? "text-white" : "text-gray-800"}`}
               />
             </motion.button>
           )}
@@ -150,8 +150,8 @@ const SlickSlider = ({ title, items, renderItem }) => {
             onClick={() => sliderRef.current.slickGoTo(index * settings.slidesToShow)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               Math.floor(currentSlide / settings.slidesToShow) === index
-                ? 'bg-blue-600 dark:bg-blue-400 w-4'
-                : 'bg-gray-300 dark:bg-gray-600'
+                ? "bg-blue-600 dark:bg-blue-400 w-4"
+                : "bg-gray-300 dark:bg-gray-600"
             }`}
           />
         ))}

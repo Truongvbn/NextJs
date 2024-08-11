@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useGoogleLogin } from '@react-oauth/google';
+import React, { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { motion, AnimatePresence } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useGoogleLogin } from "@react-oauth/google";
 import {
   FaEnvelope,
   FaLock,
@@ -15,26 +15,26 @@ import {
   FaEyeSlash,
   FaUserGraduate,
   FaChalkboardTeacher,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const otpSchema = Yup.object().shape({
-  otp: Yup.string().required('OTP is required').length(6, 'OTP must be 6 digits'),
+  otp: Yup.string().required("OTP is required").length(6, "OTP must be 6 digits"),
 });
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [showOtpField, setShowOtpField] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const router = useRouter();
 
   const parseJwt = useCallback((token) => {
     try {
-      return JSON.parse(atob(token.split('.')[1]));
+      return JSON.parse(atob(token.split(".")[1]));
     } catch (e) {
       return null;
     }
@@ -43,37 +43,37 @@ export default function Login() {
   const navigateBasedOnRole = useCallback(
     (role) => {
       const routes = {
-        STUDENT: '/student',
-        INSTRUCTOR: '/instructor',
-        SUPER_ADMIN: '/super_admin',
+        STUDENT: "/student",
+        INSTRUCTOR: "/instructor",
+        SUPER_ADMIN: "/super_admin",
       };
-      setTimeout(() => router.push(routes[role] || '/dashboard'), 2000);
+      setTimeout(() => router.push(routes[role] || "/dashboard"), 2000);
     },
-    [router]
+    [router],
   );
 
   const processLoginResponse = useCallback(
     (payload) => {
       const { AccessToken, RefreshToken } = payload;
-      localStorage.setItem('accessToken', AccessToken);
-      localStorage.setItem('refreshToken', RefreshToken);
+      localStorage.setItem("accessToken", AccessToken);
+      localStorage.setItem("refreshToken", RefreshToken);
 
       const decodedToken = parseJwt(AccessToken);
-      localStorage.setItem('usermail', decodedToken.sub);
+      localStorage.setItem("usermail", decodedToken.sub);
 
-      toast.success('Login successful!');
+      toast.success("Login successful!");
       navigateBasedOnRole(decodedToken.role);
     },
-    [parseJwt, navigateBasedOnRole]
+    [parseJwt, navigateBasedOnRole],
   );
 
   const handleSubmit = async (values, { setSubmitting }) => {
     if (!showOtpField) {
       try {
-        const response = await fetch('http://localhost/auth-service/api/user/auth/login', {
-          method: 'POST',
+        const response = await fetch("http://localhost/auth-service/api/user/auth/login", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             email: values.email,
@@ -83,18 +83,18 @@ export default function Login() {
 
         if (response.ok) {
           const data = await response.json();
-          if (values.email === 'admin@admin.com') {
+          if (values.email === "admin@admin.com") {
             processLoginResponse(data.payload);
           } else {
             setShowOtpField(true);
             setEmail(values.email);
-            toast.info('OTP has been sent to your email.');
+            toast.info("OTP has been sent to your email.");
           }
         } else {
-          throw new Error('Login failed');
+          throw new Error("Login failed");
         }
       } catch (error) {
-        toast.error('Login failed. Please check your credentials and try again.');
+        toast.error("Login failed. Please check your credentials and try again.");
       } finally {
         setSubmitting(false);
       }
@@ -103,10 +103,10 @@ export default function Login() {
 
   const handleOtpSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch('http://localhost/auth-service/api/user/auth/check-otp', {
-        method: 'POST',
+      const response = await fetch("http://localhost/auth-service/api/user/auth/check-otp", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           otp: values.otp,
@@ -118,10 +118,10 @@ export default function Login() {
         const data = await response.json();
         processLoginResponse(data.payload);
       } else {
-        throw new Error('OTP verification failed');
+        throw new Error("OTP verification failed");
       }
     } catch (error) {
-      toast.error('OTP verification failed. Please try again.');
+      toast.error("OTP verification failed. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -132,33 +132,33 @@ export default function Login() {
       const response = await fetch(
         `http://localhost/auth-service/api/user/auth/login-google?accessToken=${codeResponse.access_token}&role=${role}`,
         {
-          method: 'GET',
-        }
+          method: "GET",
+        },
       );
 
       if (response.ok) {
         const data = await response.json();
         processLoginResponse(data.payload);
       } else {
-        throw new Error('Google login failed');
+        throw new Error("Google login failed");
       }
     } catch (error) {
-      console.error('Google login error:', error);
-      toast.error('Google login failed. Please try again.');
+      console.error("Google login error:", error);
+      toast.error("Google login failed. Please try again.");
     }
   };
 
   const loginWithGoogle = useGoogleLogin({
-    onSuccess: (codeResponse) => handleGoogleLoginSuccess(codeResponse, 'STUDENT'),
+    onSuccess: (codeResponse) => handleGoogleLoginSuccess(codeResponse, "STUDENT"),
     onError: () => {
-      toast.error('Google login failed. Please try again.');
+      toast.error("Google login failed. Please try again.");
     },
   });
 
   const loginAsInstructorWithGoogle = useGoogleLogin({
-    onSuccess: (codeResponse) => handleGoogleLoginSuccess(codeResponse, 'INSTRUCTOR'),
+    onSuccess: (codeResponse) => handleGoogleLoginSuccess(codeResponse, "INSTRUCTOR"),
     onError: () => {
-      toast.error('Google login failed. Please try again.');
+      toast.error("Google login failed. Please try again.");
     },
   });
 
@@ -174,7 +174,7 @@ export default function Login() {
         <AnimatePresence mode="wait">
           {!showOtpField ? (
             <Formik
-              initialValues={{ email: '', password: '' }}
+              initialValues={{ email: "", password: "" }}
               validationSchema={loginSchema}
               onSubmit={handleSubmit}
             >
@@ -203,7 +203,7 @@ export default function Login() {
                     />
                     <Field
                       name="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       className="w-full pl-10 pr-10 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     />
@@ -223,17 +223,17 @@ export default function Login() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className={`w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Logging in...' : 'Login'}
+                    {isSubmitting ? "Logging in..." : "Login"}
                   </motion.button>
                 </Form>
               )}
             </Formik>
           ) : (
             <Formik
-              initialValues={{ otp: '' }}
+              initialValues={{ otp: "" }}
               validationSchema={otpSchema}
               onSubmit={handleOtpSubmit}
             >
@@ -252,10 +252,10 @@ export default function Login() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className={`w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Verifying...' : 'Verify OTP'}
+                    {isSubmitting ? "Verifying..." : "Verify OTP"}
                   </motion.button>
                 </Form>
               )}
@@ -299,10 +299,10 @@ export default function Login() {
         )}
 
         <p className="text-center text-sm text-gray-400 mt-6">
-          Don&apos;t have an account?{' '}
+          Don&apos;t have an account?{" "}
           <button
             type="button"
-            onClick={() => router.push('/signup')}
+            onClick={() => router.push("/signup")}
             className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
           >
             Sign up

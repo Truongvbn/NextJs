@@ -1,20 +1,10 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { mainApi } from '@/ultils/axiosconfig';
-import {
-  Book,
-  Users,
-  TrendingUp,
-  Award,
-  ChevronRight,
-  Briefcase,
-  Calendar,
-  Star,
-  Clock,
-} from 'lucide-react';
-import { CourseCard, InstructorCard, StatCard } from '@/components/ui/Card';
-import SlickSlider from '@/components/SlickSlider';
+import React, { useEffect, useState } from "react";
+import { mainApi } from "@/ultils/axiosconfig";
+import { ChevronRight, Briefcase } from "lucide-react";
+import { CourseCard, InstructorCard } from "@/components/ui/Card";
+import SlickSlider from "@/components/SlickSlider";
 
 export default function Dashboard() {
   const [courses, setCourses] = useState([]);
@@ -30,8 +20,8 @@ export default function Dashboard() {
   const fetchData = async () => {
     try {
       const [coursesResponse, instructorsResponse] = await Promise.all([
-        mainApi.get('/courses?page=0&size=20'),
-        mainApi.get('/instructors/popular'),
+        mainApi.get("/courses?page=0&size=20"),
+        mainApi.get("/instructors/popular"),
       ]);
 
       setCourses(coursesResponse.data.payload);
@@ -55,7 +45,7 @@ export default function Dashboard() {
       <section className="bg-gray-100 dark:bg-gray-800 rounded-xl p-8">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Learning Paths</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {['Web Development', 'Data Science', 'Mobile App Development'].map((path) => (
+          {["Web Development", "Data Science", "Mobile App Development"].map((path) => (
             <div key={path} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
               <Briefcase className="w-10 h-10 text-blue-500 mb-4" />
               <h3 className="text-xl font-semibold mb-2">{path}</h3>

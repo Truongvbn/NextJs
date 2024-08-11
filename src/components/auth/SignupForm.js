@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Lock,
   User,
@@ -13,36 +13,36 @@ import {
   CheckCircle,
   Zap,
   UserCircle,
-} from 'lucide-react';
-import { motion } from 'framer-motion';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const fakeUsers = [
-  { name: 'John Doe', role: 'Designer' },
-  { name: 'Jane Smith', role: 'Developer' },
-  { name: 'Alex Johnson', role: 'Manager' },
+  { name: "John Doe", role: "Designer" },
+  { name: "Jane Smith", role: "Developer" },
+  { name: "Alex Johnson", role: "Manager" },
 ];
 
 const signUpSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
-    .min(8, 'Must be at least 8 characters')
-    .matches(/[A-Z]/, 'Must contain an uppercase letter')
-    .matches(/[a-z]/, 'Must contain a lowercase letter')
-    .matches(/\d/, 'Must contain a number')
-    .matches(/\W/, 'Must contain a special character')
-    .required('Password is required'),
+    .min(8, "Must be at least 8 characters")
+    .matches(/[A-Z]/, "Must contain an uppercase letter")
+    .matches(/[a-z]/, "Must contain a lowercase letter")
+    .matches(/\d/, "Must contain a number")
+    .matches(/\W/, "Must contain a special character")
+    .required("Password is required"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm password is required'),
-  role: Yup.string().required('Role is required'),
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
+  role: Yup.string().required("Role is required"),
   agreeToTerms: Yup.boolean()
-    .oneOf([true], 'You must accept the terms and conditions')
-    .required('You must accept the terms and conditions'),
+    .oneOf([true], "You must accept the terms and conditions")
+    .required("You must accept the terms and conditions"),
 });
 
 export default function SignUp() {
@@ -50,11 +50,11 @@ export default function SignUp() {
   const router = useRouter();
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch('http://localhost/auth-service/api/user/auth/register', {
-        method: 'POST',
+      const response = await fetch("http://localhost/auth-service/api/user/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          accept: '*/*',
+          "Content-Type": "application/json",
+          accept: "*/*",
         },
         body: JSON.stringify({
           name: values.username,
@@ -65,16 +65,16 @@ export default function SignUp() {
       });
 
       if (!response.ok) {
-        throw new Error('Registration failed');
+        throw new Error("Registration failed");
       }
 
       const data = await response.json();
-      console.log('Registration successful:', data);
-      toast.success('Welcome aboard! Please check your email to verify your account.');
-      setTimeout(() => router.push('/login'), 2000);
+      console.log("Registration successful:", data);
+      toast.success("Welcome aboard! Please check your email to verify your account.");
+      setTimeout(() => router.push("/login"), 2000);
     } catch (error) {
-      console.error('Registration error:', error);
-      toast.error('Registration failed. Please try again.');
+      console.error("Registration error:", error);
+      toast.error("Registration failed. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -116,11 +116,11 @@ export default function SignUp() {
             </motion.h1>
             <Formik
               initialValues={{
-                username: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-                role: '',
+                username: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                role: "",
                 agreeToTerms: false,
               }}
               validationSchema={signUpSchema}
@@ -145,7 +145,7 @@ export default function SignUp() {
                     />
                     <Field
                       name="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       className="w-full pl-10 pr-10 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     />
@@ -204,18 +204,18 @@ export default function SignUp() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className={`w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center justify-center ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 flex items-center justify-center ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Creating Account...' : 'Create Account'}
+                    {isSubmitting ? "Creating Account..." : "Create Account"}
                     <ArrowRight className="ml-2" size={18} />
                   </motion.button>
 
                   <p className="text-center text-sm text-gray-400 mt-4">
-                    Already have an account?{' '}
+                    Already have an account?{" "}
                     <button
                       type="button"
-                      onClick={() => router.push('/login')}
+                      onClick={() => router.push("/login")}
                       className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
                     >
                       Log in
@@ -238,7 +238,7 @@ export default function SignUp() {
                 Join Our Community
               </motion.h2>
               <ul className="space-y-4">
-                {['Collaborate with experts', 'Access exclusive content', 'Grow your network'].map(
+                {["Collaborate with experts", "Access exclusive content", "Grow your network"].map(
                   (feature, index) => (
                     <motion.li
                       key={index}
@@ -250,7 +250,7 @@ export default function SignUp() {
                       <CheckCircle className="mr-3 text-blue-400 flex-shrink-0" size={24} />
                       <span className="text-lg">{feature}</span>
                     </motion.li>
-                  )
+                  ),
                 )}
               </ul>
 
@@ -291,11 +291,11 @@ export default function SignUp() {
               className="mt-8 pt-6 border-t border-gray-700"
             >
               <p className="text-sm text-gray-400 text-center">
-                By signing up, you agree to our{' '}
+                By signing up, you agree to our{" "}
                 <button type="button" className="text-blue-400 hover:text-blue-300">
                   Terms of Service
-                </button>{' '}
-                and{' '}
+                </button>{" "}
+                and{" "}
                 <button type="button" className="text-blue-400 hover:text-blue-300">
                   Privacy Policy
                 </button>

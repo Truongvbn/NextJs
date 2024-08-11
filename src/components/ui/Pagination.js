@@ -1,5 +1,5 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -19,8 +19,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => onPageChange(page)}
           className={`px-4 py-2 rounded-full ${
             currentPage === page
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200 text-gray-600 hover:bg-gray-300"
           }`}
         >
           {page}
