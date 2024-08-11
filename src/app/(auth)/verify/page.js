@@ -3,8 +3,8 @@ import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import Loader from "../components/Loader";
-import CheckCircle from "../components/CheckCircle";
+import CheckCircle from "lucide-react/CheckCircle";
+import { Loader } from "lucide-react";
 
 const VerifyPage = () => {
   const router = useRouter();
