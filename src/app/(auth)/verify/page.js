@@ -3,8 +3,7 @@ import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import CheckCircle from "lucide-react/CheckCircle";
-import { Loader } from "lucide-react";
+import { CheckCircle2, Loader } from "lucide-react";
 
 const VerifyPage = () => {
   const router = useRouter();
@@ -40,7 +39,7 @@ const VerifyPage = () => {
         {verificationStatus === "success" && (
           <div className="text-center">
             <motion.div variants={iconVariants}>
-              <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
+              <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto" />
             </motion.div>
             <h2 className="mt-4 text-2xl font-semibold text-white">Verification Successful!</h2>
             <p className="mt-2 text-gray-300">
