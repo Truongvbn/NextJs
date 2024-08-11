@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import {
   Users,
@@ -10,10 +11,8 @@ import {
   ShoppingCart,
   Heart,
   Clock,
-  ExternalLink,
   ChevronDown,
   ChevronUp,
-  Eye,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -38,7 +37,10 @@ const StatCard = ({ title, value, icon, color }) => {
           className={`absolute right-0 top-0 w-32 h-32 ${color} opacity-10 rounded-full -mr-16 -mt-16`}
         ></div>
         <div className="z-10">
-          {React.cloneElement(icon, { size: 32, className: `text-${color.split('-')[1]}-500` })}
+          {React.cloneElement(icon, {
+            size: 32,
+            className: `text-${color.split('-')[1]}-500`,
+          })}
         </div>
       </div>
     </div>

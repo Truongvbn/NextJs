@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 'use client';
 import React, { useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -141,7 +142,9 @@ const SlickSlider = ({ title, items, renderItem }) => {
         </AnimatePresence>
       </div>
       <div className="mt-8 flex justify-center space-x-2">
-        {Array.from({ length: Math.ceil(items.length / settings.slidesToShow) }).map((_, index) => (
+        {Array.from({
+          length: Math.ceil(items.length / settings.slidesToShow),
+        }).map((_, index) => (
           <button
             key={index}
             onClick={() => sliderRef.current.slickGoTo(index * settings.slidesToShow)}

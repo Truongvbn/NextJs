@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
+// eslint-disable-next-line react/prop-types
 const Header = ({ toggleSidebar }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { theme, setTheme } = useTheme();

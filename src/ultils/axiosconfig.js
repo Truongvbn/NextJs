@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from 'axios';
 
 const BASE_URL = 'http:///localhost';
@@ -41,7 +42,9 @@ const refreshAccessToken = async () => {
   }
 
   try {
-    const response = await apiInstances.authApi.post('/auth/refresh', { token: refreshToken });
+    const response = await apiInstances.authApi.post('/auth/refresh', {
+      token: refreshToken,
+    });
     if (response.status === 200 && response.data.payload) {
       const newAccessToken = response.data.payload;
       localStorage.setItem('accessToken', newAccessToken);
