@@ -13,15 +13,24 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+            >
               <span className="sr-only">GitHub</span>
               <Github className="h-6 w-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+            >
               <span className="sr-only">Twitter</span>
               <Twitter className="h-6 w-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-200"
+            >
               <span className="sr-only">LinkedIn</span>
               <Linkedin className="h-6 w-6" />
             </a>

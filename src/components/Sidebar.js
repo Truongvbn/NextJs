@@ -4,16 +4,30 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Compass, Layers, Heart, Book, Settings, HelpCircle, LogOut, ChevronRight, Users, BarChart, Bell, ChevronLeft } from 'lucide-react';
+import {
+  Home,
+  Compass,
+  Layers,
+  Heart,
+  Book,
+  Settings,
+  HelpCircle,
+  LogOut,
+  ChevronRight,
+  Users,
+  BarChart,
+  Bell,
+  ChevronLeft,
+} from 'lucide-react';
 
 const menuItems = [
-  { name: "Dashboard", icon: Home, path: "/" },
-  { name: "Explore", icon: Compass, path: "/explore" },
-  { name: "Categories", icon: Layers, path: "/categories" },
-  { name: "Saved", icon: Heart, path: "/saved" },
-  { name: "My Courses", icon: Book, path: "/my-courses" },
-  { name: "Community", icon: Users, path: "/community" },
-  { name: "Analytics", icon: BarChart, path: "/analytics" },
+  { name: 'Dashboard', icon: Home, path: '/' },
+  { name: 'Explore', icon: Compass, path: '/explore' },
+  { name: 'Categories', icon: Layers, path: '/categories' },
+  { name: 'Saved', icon: Heart, path: '/saved' },
+  { name: 'My Courses', icon: Book, path: '/my-courses' },
+  { name: 'Community', icon: Users, path: '/community' },
+  { name: 'Analytics', icon: BarChart, path: '/analytics' },
 ];
 
 const Sidebar = ({ isCollapsed, toggleSidebar }) => {
@@ -36,7 +50,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       className={`fixed left-0 top-16 bottom-0 bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl text-gray-600 dark:text-gray-300 shadow-lg transition-all duration-300 ease-in-out z-40 border-r border-gray-200/50 dark:border-gray-700/50 ${isCollapsed ? 'w-20' : 'w-64'}`}
       initial={false}
       animate={{ width: isCollapsed ? 80 : 256 }}
@@ -47,14 +61,19 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
             <Link href={item.path} key={item.name}>
               <motion.div
                 className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  pathname === item.path ? 'bg-blue-500/20 dark:bg-blue-400/20 text-blue-600 dark:text-blue-400' : 'hover:bg-gray-100/60 dark:hover:bg-gray-700/60'
+                  pathname === item.path
+                    ? 'bg-blue-500/20 dark:bg-blue-400/20 text-blue-600 dark:text-blue-400'
+                    : 'hover:bg-gray-100/60 dark:hover:bg-gray-700/60'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onHoverStart={() => setHoveredItem(item.name)}
                 onHoverEnd={() => setHoveredItem(null)}
               >
-                <item.icon size={24} className={pathname === item.path ? 'text-blue-600 dark:text-blue-400' : ''} />
+                <item.icon
+                  size={24}
+                  className={pathname === item.path ? 'text-blue-600 dark:text-blue-400' : ''}
+                />
                 {(!isCollapsed || hoveredItem === item.name) && (
                   <AnimatePresence>
                     <motion.span
@@ -151,7 +170,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
           </motion.div>
         )}
       </AnimatePresence> */}
-  
     </motion.div>
   );
 };

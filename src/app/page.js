@@ -35,8 +35,12 @@ export default function Home() {
         transition={{ duration: 0.5 }}
         className="text-center mb-12"
       >
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">Welcome to My Next.js App</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">Explore our features and get started</p>
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+          Welcome to My Next.js App
+        </h1>
+        <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+          Explore our features and get started
+        </p>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -60,7 +64,9 @@ export default function Home() {
               className="w-full bg-white dark:bg-gray-800 bg-opacity-30 dark:bg-opacity-30 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-center hover:bg-opacity-40 dark:hover:bg-opacity-40 transition-all duration-300 border border-white border-opacity-20 dark:border-gray-700 flex items-center justify-center"
             >
               <feature.icon className="w-6 h-6 mr-2 text-blue-600 dark:text-blue-400" />
-              <span className="text-xl font-semibold text-gray-800 dark:text-white">{feature.name}</span>
+              <span className="text-xl font-semibold text-gray-800 dark:text-white">
+                {feature.name}
+              </span>
             </button>
           </motion.div>
         ))}

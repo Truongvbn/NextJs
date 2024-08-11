@@ -48,9 +48,9 @@ const RootLayoutClient = ({ children }) => {
           <motion.main
             className="flex-1 p-4 lg:p-8 overflow-y-auto mt-16" /* Add mt-16 here */
             initial={false}
-            animate={{ 
-              marginLeft: isMobile ? 0 : (isSidebarOpen ? 256 : 0),
-              width: isMobile ? '100%' : `calc(100% - ${isSidebarOpen ? 256 : 0}px)`
+            animate={{
+              marginLeft: isMobile ? 0 : isSidebarOpen ? 256 : 0,
+              width: isMobile ? '100%' : `calc(100% - ${isSidebarOpen ? 256 : 0}px)`,
             }}
             transition={{ duration: 0.3 }}
           >
