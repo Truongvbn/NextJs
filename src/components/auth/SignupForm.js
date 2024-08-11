@@ -47,11 +47,28 @@ const signUpSchema = Yup.object().shape({
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('http://localhost/auth-service/api/user/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          accept: '*/*',
+        },
+        body: JSON.stringify({
+          name: values.username,
+          email: values.email,
+          password: values.password,
+          role: values.role,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+
+      const data = await response.json();
+      console.log('Registration successful:', data);
       toast.success('Welcome aboard! Please check your email to verify your account.');
       setTimeout(() => router.push('/login'), 2000);
     } catch (error) {
