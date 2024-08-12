@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import { Users, Star, Mail, Book, ChevronDown, ChevronUp } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -17,7 +17,6 @@ import {
   HeartIcon,
   CheckIcon,
 } from "@heroicons/react/24/outline";
-import { useAddToCart } from "@/hooks/useAddtocart";
 import { useCartData } from "@/hooks/useCartdata";
 
 const InstructorCard = ({ instructor }) => {
