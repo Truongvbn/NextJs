@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle2, Loader } from "lucide-react";
-import { authApi } from "@/ultils/axiosconfig";
 
-const VerifyPage = () => {
+const VerifyPageContent = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const [verificationStatus, setVerificationStatus] = useState("verifying");
@@ -13,7 +12,9 @@ const VerifyPage = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const response = await authApi.post(`/auth/verify?token=${token}`);
+        const response = await fetch(
+          `http://localhost/auth-service/api/user/auth/verify?token=${token}`,
+        );
         if (response.ok) {
           setVerificationStatus("success");
         } else {
@@ -81,6 +82,14 @@ const VerifyPage = () => {
         </div>
       )}
     </motion.div>
+  );
+};
+
+const VerifyPage = () => {
+  return (
+    <Suspense fallback={<Loader className="w-16 h-16 text-blue-400 animate-spin mx-auto" />}>
+      <VerifyPageContent />
+    </Suspense>
   );
 };
 
