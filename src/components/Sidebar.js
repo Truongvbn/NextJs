@@ -5,29 +5,28 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Home,
-  Compass,
-  Layers,
-  Heart,
-  Book,
-  Settings,
-  HelpCircle,
-  LogOut,
-  ChevronRight,
-  Users,
-  BarChart,
-  Bell,
-  ChevronLeft,
-} from "lucide-react";
+  HomeIcon,
+  GlobeAltIcon,
+  ViewColumnsIcon,
+  HeartIcon,
+  BookOpenIcon,
+  Cog6ToothIcon,
+  QuestionMarkCircleIcon,
+  ArrowRightOnRectangleIcon,
+  ChevronRightIcon,
+  UsersIcon,
+  ChartBarIcon,
+  BellIcon,
+} from "@heroicons/react/24/outline";
 
 const menuItems = [
-  { name: "Dashboard", icon: Home, path: "/" },
-  { name: "Explore", icon: Compass, path: "/explore" },
-  { name: "Categories", icon: Layers, path: "/categories" },
-  { name: "Saved", icon: Heart, path: "/saved" },
-  { name: "My Courses", icon: Book, path: "/my-courses" },
-  { name: "Community", icon: Users, path: "/community" },
-  { name: "Analytics", icon: BarChart, path: "/analytics" },
+  { name: "Dashboard", icon: HomeIcon, path: "/" },
+  { name: "Explore", icon: GlobeAltIcon, path: "/explore" },
+  { name: "Categories", icon: ViewColumnsIcon, path: "/categories" },
+  { name: "Saved", icon: HeartIcon, path: "/saved" },
+  { name: "My Courses", icon: BookOpenIcon, path: "/my-courses" },
+  { name: "Community", icon: UsersIcon, path: "/community" },
+  { name: "Analytics", icon: ChartBarIcon, path: "/analytics" },
 ];
 
 const Sidebar = ({ isCollapsed, toggleSidebar }) => {
@@ -51,7 +50,9 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
 
   return (
     <motion.div
-      className={`fixed left-0 top-16 bottom-0 bg-white/40 dark:bg-gray-800/40 backdrop-blur-xl text-gray-600 dark:text-gray-300 shadow-lg transition-all duration-300 ease-in-out z-40 border-r border-gray-200/50 dark:border-gray-700/50 ${isCollapsed ? "w-20" : "w-64"}`}
+      className={`fixed left-0 top-16 bottom-0 bg-white/30 dark:bg-gray-800/30 backdrop-blur-2xl text-gray-600 dark:text-gray-300 shadow-lg transition-all duration-300 ease-in-out z-40 border-r border-gray-200/50 dark:border-gray-700/50 ${
+        isCollapsed ? "w-20" : "w-64"
+      }`}
       initial={false}
       animate={{ width: isCollapsed ? 80 : 256 }}
     >
@@ -60,10 +61,10 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
           {menuItems.map((item) => (
             <Link href={item.path} key={item.name}>
               <motion.div
-                className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
+                className={`flex items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                   pathname === item.path
                     ? "bg-blue-500/20 dark:bg-blue-400/20 text-blue-600 dark:text-blue-400"
-                    : "hover:bg-gray-100/60 dark:hover:bg-gray-700/60"
+                    : "hover:bg-gray-100/60 dark:hover:bg-gray-700/60 hover:scale-105"
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -71,8 +72,9 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                 onHoverEnd={() => setHoveredItem(null)}
               >
                 <item.icon
-                  size={24}
-                  className={pathname === item.path ? "text-blue-600 dark:text-blue-400" : ""}
+                  className={`w-6 h-6 ${
+                    pathname === item.path ? "text-blue-600 dark:text-blue-400" : ""
+                  }`}
                 />
                 {(!isCollapsed || hoveredItem === item.name) && (
                   <AnimatePresence>
@@ -94,18 +96,17 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
         <div className="px-2 py-4 space-y-1 border-t border-gray-200/50 dark:border-gray-700/50">
           <motion.div
             onClick={() => toggleSubmenu("settings")}
-            className="flex items-center justify-between p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-colors duration-200"
+            className="flex items-center justify-between p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-all duration-200 hover:scale-105"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <div className="flex items-center">
-              <Settings size={24} />
+              <Cog6ToothIcon className="w-6 h-6" />
               {!isCollapsed && <span className="ml-4">Settings</span>}
             </div>
             {!isCollapsed && (
-              <ChevronRight
-                size={20}
-                className={`transform transition-transform duration-200 ${
+              <ChevronRightIcon
+                className={`w-5 h-5 transform transition-transform duration-200 ${
                   activeSubmenu === "settings" ? "rotate-90" : ""
                 }`}
               />
@@ -122,7 +123,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                 {["Profile", "Account", "Notifications"].map((item) => (
                   <Link href={`/settings/${item.toLowerCase()}`} key={item}>
                     <motion.div
-                      className="p-2 rounded-md hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-colors duration-200"
+                      className="p-2 rounded-md hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-all duration-200 hover:scale-105"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -135,20 +136,20 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
           </AnimatePresence>
           <Link href="/help">
             <motion.div
-              className="flex items-center p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-colors duration-200"
+              className="flex items-center p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-all duration-200 hover:scale-105"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <HelpCircle size={24} />
+              <QuestionMarkCircleIcon className="w-6 h-6" />
               {!isCollapsed && <span className="ml-4">Help & Support</span>}
             </motion.div>
           </Link>
           <motion.div
-            className="flex items-center p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-colors duration-200"
+            className="flex items-center p-3 rounded-lg cursor-pointer hover:bg-gray-100/60 dark:hover:bg-gray-700/60 transition-all duration-200 hover:scale-105"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <LogOut size={24} />
+            <ArrowRightOnRectangleIcon className="w-6 h-6" />
             {!isCollapsed && <span className="ml-4">Logout</span>}
           </motion.div>
         </div>
@@ -159,14 +160,20 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="absolute bottom-4 left-4 right-4 bg-blue-500/10 dark:bg-blue-400/10 rounded-lg p-4 backdrop-blur-sm"
+            className="absolute bottom-4 left-4 right-4 bg-blue-500/10 dark:bg-blue-400/10 rounded-lg p-4 backdrop-blur-md"
           >
             <div className="flex items-center mb-2">
-              <Bell size={20} className="text-blue-500 dark:text-blue-400 mr-2" />
-              <span className="font-semibold text-blue-600 dark:text-blue-400">What's New</span>
+              <BellIcon className="w-5 h-5 text-blue-500 dark:text-blue-400 mr-2" />
+              <span className="font-semibold text-blue-600 dark:text-blue-400">
+                What&apos;s New
+              </span>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Check out our latest features and updates!</p>
-            <button className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline">Learn More</button>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              Check out our latest features and updates!
+            </p>
+            <button className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline">
+              Learn More
+            </button>
           </motion.div>
         )}
       </AnimatePresence> */}

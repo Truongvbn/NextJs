@@ -1,51 +1,24 @@
 /* eslint-disable react/prop-types */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import {
-  Users,
-  Star,
-  Mail,
-  Book,
-  ShoppingCart,
-  Heart,
-  Clock,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { Users, Star, Mail, Book, ChevronDown, ChevronUp } from "lucide-react";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
 
-const StatCard = ({ title, value, icon, color }) => {
-  const { theme } = useTheme();
-
-  return (
-    <div
-      className={`${theme === "dark" ? "bg-gray-800/50" : "bg-white/50"} backdrop-blur-md rounded-xl overflow-hidden shadow-lg p-6 h-full transform transition duration-500 hover:scale-105 border border-gray-200 dark:border-gray-700`}
-    >
-      <div className="flex justify-between items-center h-full relative">
-        <div className="z-10">
-          <h3
-            className="text-lg font-semibold mb-2 line-clamp-2 h-12 text-gray-800 dark:text-white"
-            title={title}
-          >
-            {title}
-          </h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
-        </div>
-        <div
-          className={`absolute right-0 top-0 w-32 h-32 ${color} opacity-10 rounded-full -mr-16 -mt-16`}
-        ></div>
-        <div className="z-10">
-          {React.cloneElement(icon, {
-            size: 32,
-            className: `text-${color.split("-")[1]}-500`,
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ClockIcon,
+  ShoppingCartIcon,
+  StarIcon,
+  UserGroupIcon,
+  HeartIcon,
+  CheckIcon,
+} from "@heroicons/react/24/outline";
+import { useAddToCart } from "@/hooks/useAddtocart";
+import { useCartData } from "@/hooks/useCartdata";
 
 const InstructorCard = ({ instructor }) => {
   const { theme } = useTheme();
@@ -152,7 +125,6 @@ const InstructorCard = ({ instructor }) => {
     </div>
   );
 };
-
 const CourseCard = ({ course }) => {
   const { theme } = useTheme();
   const [isFavorite, setIsFavorite] = useState(false);
@@ -160,100 +132,150 @@ const CourseCard = ({ course }) => {
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
+  const { cartItems, addToCart, isAddingToCart } = useCartData();
+
+  const isInCart = useMemo(
+    () => Array.isArray(cartItems) && cartItems.some((item) => item.id === course.courseId),
+    [cartItems, course.courseId],
+  );
+
+  const handleAddToCart = () => {
+    if (isInCart) return;
+    addToCart(course.courseId);
+  };
   return (
-    <div
-      className={`group h-full flex flex-col rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${
-        theme === "dark" ? "bg-gray-800/50" : "bg-white/50"
-      } backdrop-blur-md border border-gray-200 dark:border-gray-700 overflow-hidden`}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`group h-full flex flex-col rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden
+        ${theme === "dark" ? "bg-gray-800/30" : "bg-white/30"} 
+        backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50`}
     >
-      <div className="relative aspect-video">
+      <div className="relative aspect-video overflow-hidden">
         <Image
           src={course.imageUrl || "/default-course.png"}
           alt={course.title || "Course"}
           layout="fill"
           objectFit="cover"
-          className="group-hover:scale-105 transition-transform duration-300"
+          className="transform transition-transform duration-300 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <button
-          className="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-gray-800/80 rounded-full shadow-sm transition-colors duration-200 hover:bg-white dark:hover:bg-gray-700"
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent" />
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="absolute top-3 right-3 p-2 bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-full shadow-lg transition-colors duration-200 hover:bg-white/40 dark:hover:bg-gray-700/40"
           onClick={() => setIsFavorite(!isFavorite)}
         >
-          <Heart
-            className={`w-4 h-4 ${isFavorite ? "text-red-500 fill-current" : "text-gray-600"}`}
+          <HeartIcon
+            className={`w-5 h-5 ${isFavorite ? "text-red-500 fill-current" : "text-white"}`}
           />
-        </button>
-        <div className="absolute bottom-2 left-2 flex items-center space-x-1">
-          <span className="px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded-full">
+        </motion.button>
+        <div className="absolute bottom-3 left-3 flex flex-wrap items-center gap-2">
+          <span className="px-3 py-1 bg-blue-500/80 backdrop-blur-md text-white text-xs font-medium rounded-full">
             {course.category?.name || "Uncategorized"}
           </span>
-          <span className="px-2 py-1 bg-green-500 text-white text-xs font-medium rounded-full">
+          <span className="px-3 py-1 bg-green-500/80 backdrop-blur-md text-white text-xs font-medium rounded-full">
             {course.price === 0 ? "Free" : `$${course.price?.toFixed(2)}`}
           </span>
         </div>
       </div>
-      <div className="p-4 flex-grow flex flex-col justify-between">
+      <div className="p-5 flex-grow flex flex-col justify-between space-y-4">
         <div>
           <h3
-            className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2 mb-2"
+            className="text-xl font-bold text-gray-900 dark:text-white line-clamp-2 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200"
             title={course.title || "Untitled Course"}
           >
             {course.title || "Untitled Course"}
           </h3>
           <p
-            className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-3"
+            className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2"
             title={course.sum || "No summary available."}
           >
             {course.sum || "No summary available."}
           </p>
         </div>
-        <div
-          className={`overflow-hidden transition-all duration-300 ${isExpanded ? "max-h-40" : "max-h-0"}`}
+        <motion.div
+          animate={{ height: isExpanded ? "auto" : 0 }}
+          transition={{ duration: 0.3 }}
+          className="overflow-hidden"
         >
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             {course.description || "No detailed description available."}
           </p>
+        </motion.div>
+        <div className="flex justify-between items-center text-sm">
+          <div className="flex items-center text-yellow-500">
+            <StarIcon className="w-5 h-5 mr-1 fill-current" />
+            <span className="font-semibold">{course.rating?.toFixed(1) || "N/A"}</span>
+          </div>
+          <div className="flex items-center text-gray-500 dark:text-gray-400">
+            <UserGroupIcon className="w-5 h-5 mr-1" />
+            <span>{course.buyNumber || 0} students</span>
+          </div>
+          <div className="flex items-center text-gray-500 dark:text-gray-400">
+            <ClockIcon className="w-5 h-5 mr-1" />
+            <span>8h</span>
+          </div>
         </div>
-        <div className="mt-auto">
-          <div className="flex justify-between items-center text-sm mb-3">
-            <div className="flex items-center text-yellow-500">
-              <Star className="w-4 h-4 mr-1 fill-current" />
-              <span className="font-semibold">{course.rating?.toFixed(1) || "N/A"}</span>
-            </div>
-            <div className="flex items-center text-gray-500 dark:text-gray-400">
-              <Users className="w-4 h-4 mr-1" />
-              <span>{course.buyNumber || 0} students</span>
-            </div>
-            <div className="flex items-center text-gray-500 dark:text-gray-400">
-              <Clock className="w-4 h-4 mr-1" />
-              <span>8h</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              onClick={toggleExpand}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center"
-            >
-              {isExpanded ? (
-                <>
-                  <ChevronUp className="w-4 h-4 mr-1" />
-                  Show Less
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="w-4 h-4 mr-1" />
-                  Show More
-                </>
-              )}
-            </button>
-            <button>
-              <ShoppingCart className="w-4 h-4 mr-2" />
-            </button>
-          </div>
+        <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleExpand}
+            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium flex items-center transition-colors duration-200"
+          >
+            {isExpanded ? (
+              <>
+                <ChevronUpIcon className="w-5 h-5 mr-1" />
+                Show Less
+              </>
+            ) : (
+              <>
+                <ChevronDownIcon className="w-5 h-5 mr-1" />
+                Show More
+              </>
+            )}
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={`p-2 ${
+              isInCart ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"
+            } text-white rounded-full transition-colors duration-200`}
+            onClick={handleAddToCart}
+            disabled={isAddingToCart || isInCart}
+          >
+            {isAddingToCart ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            ) : isInCart ? (
+              <CheckIcon className="w-5 h-5" />
+            ) : (
+              <ShoppingCartIcon className="w-5 h-5" />
+            )}
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
-
-export { StatCard, InstructorCard, CourseCard };
+export { InstructorCard, CourseCard };

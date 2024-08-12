@@ -22,6 +22,8 @@ const nextConfig = {
       "i.ytimg.com",
       "foundr.com",
       "www.bing.com",
+      "th.bing.com",
+      "lh3.googleusercontent.com",
       // Thêm bất kỳ domain nào khác mà bạn sử dụng cho hình ảnh
     ],
   },

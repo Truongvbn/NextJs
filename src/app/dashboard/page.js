@@ -21,12 +21,12 @@ export default function Dashboard() {
     try {
       const [coursesResponse, instructorsResponse] = await Promise.all([
         mainApi.get("/courses?page=0&size=20"),
-        mainApi.get("/instructors/popular"),
+        // mainApi.get("/instructors/popular"),
       ]);
 
       setCourses(coursesResponse.data.payload);
       setBestSellers(coursesResponse.data.payload.filter((course) => course.buyNumber > 3));
-      setPopularInstructors(instructorsResponse.data.payload);
+      // setPopularInstructors(instructorsResponse.data.payload);
     } catch (err) {
       setError(err.message);
     } finally {

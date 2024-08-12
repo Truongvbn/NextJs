@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 "use client";
 import React, { useRef, useEffect } from "react";
 import Slider from "react-slick";
@@ -15,7 +14,7 @@ const SlickSlider = ({ title, items, renderItem }) => {
 
   const settings = {
     dots: false,
-    infinite: items.length > 4,
+    infinite: items.length > 3,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -23,25 +22,19 @@ const SlickSlider = ({ title, items, renderItem }) => {
     beforeChange: (current, next) => setCurrentSlide(next),
     responsive: [
       {
-        breakpoint: 1536,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 1280,
+        breakpoint: 1920, // 16 inch = 1920px assuming 120 DPI
         settings: {
           slidesToShow: 3,
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 1280,
         settings: {
           slidesToShow: 2,
         },
       },
       {
-        breakpoint: 640,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
         },
@@ -91,19 +84,19 @@ const SlickSlider = ({ title, items, renderItem }) => {
     <div className="mb-24 relative">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white">{title}</h2>
-        {/* <button className="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
-          View All <Maximize2 className="ml-2 w-4 h-4" />
-        </button> */}
       </div>
       <div className="relative px-4 sm:px-8 lg:px-12">
-        <Slider ref={sliderRef} {...settings}>
+        <Slider ref={sliderRef} {...settings} className="min-h-[400px]">
+          {" "}
+          {/* Increased minimum height */}
           {items.map((item, index) => (
             <div key={index} className="px-4 sm:px-6">
               <motion.div
-                className="card-content h-full"
+                className="card-content h-full flex flex-col justify-between"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                style={{ minHeight: "350px" }} // Set a minimum height for cards
               >
                 {renderItem(item)}
               </motion.div>
