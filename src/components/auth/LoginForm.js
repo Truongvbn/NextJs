@@ -31,7 +31,7 @@ export default function Login() {
   const [showOtpField, setShowOtpField] = useState(false);
   const [email, setEmail] = useState("");
   const router = useRouter();
-
+  const [userData, setUserData] = useState(null);
   const parseJwt = useCallback((token) => {
     try {
       return JSON.parse(atob(token.split(".")[1]));
@@ -40,6 +40,20 @@ export default function Login() {
     }
   }, []);
 
+  const fetchUserData = async (email) => {
+    try {
+      const response = await fetch(
+        `http://localhost/main-service/api/users?email=${encodeURIComponent(email)}`,
+      );
+      const data = await response.json();
+      if (data.success) {
+        setUserData(data.payload);
+        localStorage.setItem("Userdata", JSON.stringify(data.payload));
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
   const navigateBasedOnRole = useCallback(
     (role) => {
       const routes = {
@@ -62,9 +76,12 @@ export default function Login() {
       localStorage.setItem("usermail", decodedToken.sub);
 
       toast.success("Login successful!");
+      // Fetch user data and store it in localStorage
+      fetchUserData(decodedToken.sub);
+
       navigateBasedOnRole(decodedToken.role);
     },
-    [parseJwt, navigateBasedOnRole],
+    [parseJwt, fetchUserData, navigateBasedOnRole],
   );
 
   const handleSubmit = async (values, { setSubmitting }) => {

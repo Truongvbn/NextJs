@@ -25,7 +25,7 @@ export default function Dashboard() {
       ]);
 
       setCourses(coursesResponse.data.payload);
-      setBestSellers(coursesResponse.data.payload.filter((course) => course.buyNumber > 3));
+      setBestSellers(coursesResponse.data.payload.filter((course) => course.buyNumber >= 0));
       // setPopularInstructors(instructorsResponse.data.payload);
     } catch (err) {
       setError(err.message);
